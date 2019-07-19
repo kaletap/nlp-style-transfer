@@ -1,0 +1,6 @@
+[submodule "chainer-fm-gan"]
+	path = chainer-fm-gan
+	url = https://github.com/kaletap/chainer-fm-gan.git
+[submodule "language-style-transfer"]
+	path = language-style-transfer
+	url = https://github.com/kaletap/language-style-transfer.git
