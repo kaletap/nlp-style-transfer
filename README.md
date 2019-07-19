@@ -12,8 +12,14 @@ Feature-Mover’s Distance
     * Paper: https://papers.nips.cc/paper/7717-adversarial-text-generation-via-feature-movers-distance.pdf
     * Code: https://github.com/shentianxiao/language-style-transfer [1]
     
+## Progress:
+1. Implemented data downloading (imdb) that will later be used for training. 17.07.19
+2. Changed code in language-style-transfer from python2 to python3. 17.07.19
+
+## TODO:
+1. Run this code (write requirements file / docker)
+    
     
 [1] Reimplementation of original code. Link to author's repository at http://zhegan27.github.io/Paper.html) was not 
 available.
-    
 
