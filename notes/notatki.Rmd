@@ -1,0 +1,33 @@
+---
+title: "notatki"
+author: "Przemysław Kaleta"
+output: html_document
+---
+
+# Adversarial Text Generation via Feature-Mover's Distance 
+Artykuł opisuje różne podejścia do generowania języka, w szczególności skupia się na użyciu GANów (Generatvie Adversarial Networks).
+
+## Czym jest `text generation`?
+Tworzenie tesktów, które są spójne logicznie i poprawne językowo, często na podstawie jakiegoś kontekstu. Może być potrzebne w tłumaczeniu maszynowym lub też w automatycznym opisywaniu obrazków (`image captioning`).
+
+## Dlaczego nie podejście oparte na modelowaniu języka za pomocą rekurencyjnych sieci neuronowych?
+Ponieważ przez generowanie wyrazów wyraz po wyrazie akumulujemy błędy. Można użyć metod wyszukiwania najlepszych zdań jako całość (beam search) lecz jest to już wolniejsze.
+Celem modelowania języka jest szacowanie prawdopodobieństwa kolejnego wyrazu w ciągu wyrazów na podstawie poprzednich, a nie generowanie tekstu. Dlatego warto próbować znaleźć metody, których głównym celem jest właśnie optymalizacja znajdowania poprawnych całych zdań.
+
+Rozważmy teraz zagadnienie generowania zdań o konkretnym stylu (na przykład z wydźwiękiem pozytywnym i negatywnym). Może to nie być problemem - wystarczy stworzyć dwa modele na dwóch rodzajach danych.
+Co jednak gdy chcemy na podstawie zdania w podanym stylu wygenerować dane w stylu innym? Modele rekurencyjne radzą sobie z taką sytuacją: wystarczy użyć na przykład enkodera i dekodera, co (przynajmniej jakiś czas temu) dawało dobre rezultaty np. w tłumaczeniu maszynowym.
+Koniecznością jednak jest wtedy posiadanie dla każdego zdania w jednym stylu odpowiednika w stylu drugim - uzyskanie
+takich danych raczej nie zawsze jest realistyczne. Dużo łatwiej jest zgromadzić dwa osobne korpusy w różnych stylach.
+
+## Co to jest optymalny transport?
+Niech $\mu$, $\nu$ rozkłady prawdopodobieństwa. `Earth Mover's Distance` definiujemy jako 
+$$D(\mu, \nu) = \inf_{\gamma \in \Pi(\mu, \nu)} \mathbb{E}_{(x, y) \sim \gamma} \left[ c(x, y) \right] $$
+gdzie $\Pi(\mu, \nu)$ jest zbiorem rozkładów prawdopodobieństwa o rozkładach brzegowych odpowiednio $\mu$ oraz $\nu$, a $c$ jest funkcją kosztu.
+
+Bardziej intuicyjne jest inne sformułowanie, które z grubsza stara się znaleźć najlepszy sposób na "przetransportowanie" masy prawdodobieństwa z $\mu$ na $\nu$. 
+$$D(\mu, \nu) = \inf_{T: T(X) \sim \nu} \mathbb{E}_{x \sim \mu} \left[ c(x, T(x)) \right] $$
+
+### Skąd to się wzięło?
+Ogólnie problemem jest szukanie takich odległości między rozkładami, które działają nawet dla rozkładów o rozłącznych nośnikach. Odległość Kullbacka-Leiblera tutaj nie jest dobra, bo problemy mogą pojawić sie w logarytmie i odlgełość może być nieciągła ze względu na parametr rozkładu. Podobny problem z nieciągłością występuje też w innych rodzajach odległości takich jak odległość Jensena-Shannona.
+
+### Jak związek ma teoria optymalnego transportu z GANami?
