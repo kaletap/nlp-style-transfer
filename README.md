@@ -13,11 +13,13 @@ Feature-Mover’s Distance
     * Code: https://github.com/shentianxiao/language-style-transfer [1]
     
 ## Progress:
-1. Implemented data downloading (imdb) that will later be used for training. 17.07.19
-2. Changed code in language-style-transfer from python2 to python3. 17.07.19
+1. Implemented data downloading (imdb) that will later be used for training. (17.07.19)
+2. Changed code in language-style-transfer from python2 to python3. (17.07.19)
+3. Found out how to run language-style-transfer code (python3.6 and tensorflow==1.3.0). Added casting to tf.int32 to 
+fix a bug. (19.07.19)
 
 ## TODO:
-1. Run this code (write requirements file / docker)
+1. Run this code (write requirements file / docker) on some corpora.
     
     
 [1] Reimplementation of original code. Link to author's repository at http://zhegan27.github.io/Paper.html) was not 
