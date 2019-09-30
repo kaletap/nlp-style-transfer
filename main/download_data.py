@@ -19,7 +19,7 @@ def download_and_save_file(url: str, save_path: str, overwrite: bool = False) ->
     return True
 
 
-def download_and_save_imdb_dataset():
+def download_and_save_imdb_dataset() -> None:
     imdb_data_url = "http://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz"
     save_tar_path = "data/imdb_tmp.tar.gz"
     print("Started downloading idbd_v1 dataset from {}.".format(imdb_data_url))
